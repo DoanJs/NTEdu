@@ -1,0 +1,41 @@
+.admin-target-page {
+  /* height: calc(100vh - 120px); */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.admin-content {
+  flex: 1;
+  min-height: 0;
+}
+
+.admin-table-col,
+.admin-form-col {
+  height: 100%;
+  min-height: 0;
+}
+
+.qx-table-scroll {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.plans-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #fff;
+}
+
+.icon-edit {
+  border: 1px solid #fed7aa;
+  background: #fff7ed;
+  color: #f97316;
+}
+
+.icon-edit:hover {
+  background: #ffedd5;
+  color: #ea580c;
+}

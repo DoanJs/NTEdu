@@ -1,0 +1,112 @@
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+  transform: translateY(-1px);
+}
+
+/* icon thêm */
+.icon-add {
+  border: 1px solid #d1fae5;
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.icon-add:hover {
+  background: #d1fae5;
+  color: #047857;
+}
+
+/* icon xóa */
+.icon-delete {
+  border: 1px solid #fee2e2;
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.icon-delete:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.teacher-badge {
+  background: #ecfdf5;
+  color: #059669;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  width: fit-content;
+}
+.child-count {
+  background: #f1f5f9;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #334155;
+  white-space: nowrap;
+}
+.search-left {
+  width: 66.66%;
+  display: flex;
+  align-items: center;
+}
+
+.search-left input {
+  flex: 1;
+}
+.empty-state {
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+}
+.empty-icon {
+  font-size: 40px;
+  color: #f59e0b; /* vàng giống hình */
+  margin-bottom: 10px;
+}
+
+.empty-text {
+  font-size: 14px;
+}
+.icon-edit {
+  border: 1px solid #059669;
+  background: #fff7ed;
+  color: #f97316; /* cam */
+}
+
+.icon-edit:hover {
+  background: #ffedd5;
+  color: #ea580c;
+}
+.table-scroll {
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* .table-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-scroll::-webkit-scrollbar-thumb {
+  background: #b7e4d7;
+  border-radius: 10px;
+}
+
+.table-scroll::-webkit-scrollbar-track {
+  background: transparent;
+} */
