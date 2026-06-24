@@ -1,10 +1,10 @@
 import { FieldValue } from "firebase/firestore";
 
-export const CENTER_NAME = "TRUNG TÂM TÂM LÝ GIÁO DỤC NGÔI SAO XANH";
-export const FIRST_NAME = "TRUNG TÂM TÂM LÝ GIÁO DỤC";
-export const LAST_NAME = "NGÔI SAO XANH";
+export const CENTER_NAME = "TRUNG TÂM CAN THIỆP SỚM NHA TRANG";
+export const FIRST_NAME = "TRUNG TÂM CAN THIỆP SỚM";
+export const LAST_NAME = "NHA TRANG";
 export const activeCategoryDefault = "3EUhuJoxzHauQpx1pPxq"; //HoaBanMaiEdu-Mobile
-export const indexedDBName = "NSXEdu";
+export const indexedDBName = "NTEdu";
 export const ADMINID = "QeCNbJPVLwVwy01S3hB3dgALsRm1"; //HoaBanMaiEdu-Mobile
 export const fieldOrder = [
   "Nji6cMUy0TcZ1Tw8B2iG", //tngng

@@ -1,6 +1,6 @@
 {
-  "short_name": "NSX-Education",
-  "name": "NSX-Education",
+  "short_name": "NT-Education",
+  "name": "Trung tâm Can thiệp sớm Nha Trang",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "NSXEdu-icon-192x192.png",
+      "src": "NTEdu-icon-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "NSXEdu-icon-512x512.png",
+      "src": "NTEdu-icon-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

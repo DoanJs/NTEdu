@@ -17,6 +17,7 @@ import {
   useCartStore,
   useChildStore,
   useFieldStore,
+  useInterventionStore,
   usePlanStore,
   useSelectNavbarStore,
   useUserStore,
@@ -36,7 +37,7 @@ export default function CartScreen() {
   const [disable, setDisable] = useState(false);
   const [plan, setPlan] = useState<PlanModel>();
   const { fields } = useFieldStore();
-  // const { interventions } = useInterventionStore();
+  const { interventions } = useInterventionStore();
 
   const fieldMap = useMemo(() => {
     const map: any = {};
@@ -220,7 +221,7 @@ export default function CartScreen() {
               key={goal.id}
               goal={goal}
               fieldMap={fieldMap}
-              // interventions={interventions}
+              interventions={interventions}
             />
           ))}
 
@@ -308,13 +309,16 @@ export default function CartScreen() {
 function GoalCard({
   goal,
   fieldMap,
-  // interventions
+  interventions
 }: {
   goal: any;
   fieldMap: any;
-  // interventions: any[]
+  interventions: any[]
 }) {
-  const { removeCart } = useCartStore();
+  const { removeCart, editCart } = useCartStore();
+const handleSelectIntervention = (val: string) => {
+    editCart(goal.id, { ...goal, intervention: val });
+  };
 
   return (
     <article className="goal-card">
@@ -350,7 +354,7 @@ function GoalCard({
         <p>{goal.content || "Chưa có mô tả cho mục tiêu này. Liên hệ Admin"}</p>
       </div>
 
-      {/* <select className="support-select" value={goal.intervention}
+      <select className="support-select" value={goal.intervention}
         onChange={(val) => handleSelectIntervention(val.target.value)}>
         <option value="">Chọn mức độ hỗ trợ</option>
         {interventions.map((_) => (
@@ -358,7 +362,7 @@ function GoalCard({
             {_.name}
           </option>
         ))}
-      </select> */}
+      </select>
     </article>
   );
 }

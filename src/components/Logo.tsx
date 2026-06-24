@@ -12,7 +12,7 @@ export default function Logo({ type }: { type: string }) {
     >
       <div className="brand-logo overflow-hidden">
         <img
-          src="/NSXEdu-icon-512x512.png"
+          src="/NTEdu-icon-512x512.png"
           alt="Ngôi Sao Xanh"
           className="logo-img"
         />
