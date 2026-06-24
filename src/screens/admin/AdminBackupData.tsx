@@ -54,7 +54,7 @@ export default function AdminBackupData() {
             onClick={() => setShowAlert(true)}
             disabled={isLoading}
           >
-            Backup tất cả data Ngôi Sao Xanh Edu
+            Backup tất cả data Can thiệp sớm Nha Trang
           </button>
         </div>
       </div>

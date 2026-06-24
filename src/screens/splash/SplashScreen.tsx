@@ -29,14 +29,14 @@ export default function SplashScreen({
 
               {/* Tên trung tâm */}
               <h1 className="splash-title">
-                TRUNG TÂM TÂM LÝ GIÁO DỤC
+                TRUNG TÂM CAN THIỆP SỚM
               </h1>
               <h1 className="splash-title">
-                NGÔI SAO XANH
+                NHA TRANG
               </h1>
 
               <p className="splash-subtitle">
-                Can thiệp sớm - Hòa nhập chất lượng
+                Mỗi bước nhỏ – Một kỳ tích lớn
               </p>
 
               {/* Progress */}

@@ -48,10 +48,14 @@ import {
   useTotalReportTaskStore,
   useUserStore,
 } from "../../zustand";
-import { query_targets, query_interventions, query_fields } from "../../constants/firebase/query/Index";
+import {
+  query_targets,
+  query_interventions,
+  query_fields,
+} from "../../constants/firebase/query/Index";
 import { useFirestoreWithMeta } from "../../constants/useFirestoreWithMeta";
 
-const logoUrl = "/NSXEdu-icon-512x512.png";
+const logoUrl = "/NTEdu-icon-512x512.png";
 
 export default function DashBoard() {
   const navigate = useNavigate();
@@ -412,12 +416,16 @@ export default function DashBoard() {
           </nav>
 
           <div className="sidebar-footer">
-            <strong className="slogan">Can thiệp sớm</strong>
-            <div className="heart">
-              {/* <i className="bi bi-heart-pulse-fill"></i> */}
-              <i className="bi bi-stars" style={{ color: "#118c17" }}></i>
+            <div className="menu-background">
+              <img alt="dashboad-menu" src="/menu-background.png" />
             </div>
-            <strong className="slogan">Hòa nhập chất lượng</strong>
+
+            <strong className="slogan">Mỗi bước nhỏ</strong>
+            <div className="heart">
+              <i className="bi bi-heart-pulse-fill"></i>
+              {/* <i className="bi bi-stars" style={{ color: "#118c17" }}></i> */}
+            </div>
+            <strong className="slogan">Một kỳ tích lớn</strong>
           </div>
         </aside>
 
@@ -784,6 +792,10 @@ body {
   //   radial-gradient(circle at top, #fff, transparent 42%),
   //   linear-gradient(135deg, #f8fff9, #dff7e4);
   border: 1px solid var(--border);
+  img {
+    height: 120px;
+    width: auto;
+  }
 }
 
 .heart {

@@ -1,10 +1,12 @@
 import { signOut } from "firebase/auth";
 import { onValue, ref, set } from "firebase/database";
-import { where } from "firebase/firestore";
+import { serverTimestamp, where } from "firebase/firestore";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Logo, SpinnerComponent } from "../../components";
 import LoadingOverlay from "../../components/LoadingOverLay";
+import { fieldData } from "../../constants/database/fieldData";
+import { addDocData } from "../../constants/firebase/addDocData";
 import { getDocsData } from "../../constants/firebase/getDocsData";
 import {
   handleToastError,
@@ -16,6 +18,7 @@ import { auth, rtdb } from "../../firebase.config";
 import { ChildrenModel } from "../../models";
 import { useChildrenStore, useTeacherStore, useUserStore } from "../../zustand";
 import "./children.css";
+import { targetData } from "../../constants/database/targetData";
 
 export default function HomeStudentsBootstrapGreen() {
   const navigate = useNavigate();
@@ -149,7 +152,38 @@ export default function HomeStudentsBootstrapGreen() {
       setIsLoading(false);
     }
   };
+  // -----------------test add data-----------------
+  // const addDataToFirebase = async () => {
+    
+  //   // const promiseItems = targetData.map((_) =>
+  //   //   addDocData({
+  //   //     nameCollect: "targets",
+  //   //     value: {
+  //   //       ..._,
+  //   //       createAt: serverTimestamp(),
+  //   //       updateAt: serverTimestamp(),
+  //   //     },
+  //   //     metaDoc: "targets",
+  //   //   }),
+  //   // );
 
+  //   // await Promise.all(promiseItems);
+  //   // console.log("Completed");
+
+  //   // const promiseItems = dataMatching.map((item) =>
+  //   //   setDoc(doc(db, "targets", item.id), {
+  //   //     ...item,
+  //   //     createAt: serverTimestamp(),
+  //   //     updateAt: serverTimestamp(),
+  //   //   }),
+  //   // );
+
+  //   // await Promise.all(promiseItems);
+  //   // console.log('completed')
+  //   console.log(targetData)
+  // };
+
+  // ------------------test add data-----------------
   if (loading_children) return <SpinnerComponent />;
 
   return (
@@ -182,6 +216,7 @@ export default function HomeStudentsBootstrapGreen() {
             </h1>
             <p>Chọn trẻ để xem hồ sơ, kế hoạch và báo cáo can thiệp</p>
           </section>
+          {/* <button onClick={addDataToFirebase}>Add data</button> */}
 
           <main className="nsx-content">
             <div className="content-head">

@@ -3,72 +3,20 @@ import { FieldValue } from "firebase/firestore";
 export const CENTER_NAME = "TRUNG TÂM CAN THIỆP SỚM NHA TRANG";
 export const FIRST_NAME = "TRUNG TÂM CAN THIỆP SỚM";
 export const LAST_NAME = "NHA TRANG";
-export const activeCategoryDefault = "3EUhuJoxzHauQpx1pPxq"; //HoaBanMaiEdu-Mobile
+export const activeCategoryDefault = "0cRIazecDfAYnFJuWUfe"; //NTEdu
 export const indexedDBName = "NTEdu";
-export const ADMINID = "QeCNbJPVLwVwy01S3hB3dgALsRm1"; //HoaBanMaiEdu-Mobile
+export const ADMINID = "lfjyUePKV5hLwwFCMxWZzn87BF53"; //NTEdu
 export const fieldOrder = [
-  "Nji6cMUy0TcZ1Tw8B2iG", //tngng
-  "j6fFXTUD1D6rym4UmKkV", //nt
-  "gGNJ5mQZRSxkSW4qAu6F", //nnh
-  "3EUhuJoxzHauQpx1pPxq", //nndt
-  "kzkiAv3X9TZaKRlhfa1X", //vdtho
-  "cyg1PnZ4snHm583dFBzp", //vdt
-  "v10pqAVWk2wp6HEgaVKk", //knc
-  "zfnX1X3wvP46rRF3k4gB", //pa
-  "48UQhGWIQECsi8lAd7Sc", //hv
-  "qw6gesBxUmEgEDow153O", //thdg
+  "0cRIazecDfAYnFJuWUfe", //nndđ
+  "7SL34YXNPdV24tyU9NZ7", //knxh
+  "B0sZH1M7TXCW5XB0bDS9", //ttcy
+  "GWO0AuMNYGon974oLzZE", //vđtho
+  "JY2tt1S8jND4Jw80m6hO", //vđtinh
+  "JDttfooN4K9nJ2NaIVos", //nnhieu
+  "Zy8wibopxeYr8PijRg71", //knchoi
+  "he0Xm6ItYl2z28j6xHFO", //nt
+  "pjoLdg6Jxq4PMmsqLUQ7", //knbatchuoc
 ];
-
-// functions
-
-// export const formatDateSearch = (time: any) => {
-//   if (!time) return "";
-
-//   const date = time.toDate ? time.toDate() : new Date(time);
-
-//   const day = String(date.getDate()).padStart(2, "0");
-//   const month = String(date.getMonth() + 1).padStart(2, "0");
-//   const year = date.getFullYear();
-
-//   return `${day}/${month}/${year} ${month}/${year} ${year}`;
-// };
-
-// export const handleCommentTotal = (array: any[]) => {
-//   // eslint-disable-next-line
-//   let isComment: boolean = false;
-//   array.map((_: any) => {
-//     if (_.comment && _.status === "pending") {
-//       isComment = true;
-//     }
-//   });
-
-//   return isComment;
-// };
-// export const parseVNDate = (dateStr: string) => {
-//   const [day, month, year] = dateStr.split("/").map(Number);
-//   return new Date(year, month - 1, day); // month - 1 vì JS đếm từ 0
-// };
-// export const calculateAgeDetail = (birthStr: string) => {
-//   const birth = parseVNDate(birthStr);
-//   const now = new Date();
-
-//   let years = now.getFullYear() - birth.getFullYear();
-//   let months = now.getMonth() - birth.getMonth();
-//   let days = now.getDate() - birth.getDate();
-
-//   if (days < 0) {
-//     months--;
-//     const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-//     days += prevMonth.getDate();
-//   }
-
-//   if (months < 0) {
-//     years--;
-//     months += 12;
-//   }
-
-//   return { years, months, days };
-// };
 
 // functions
 export const getChildAge = (timestamp: any) => {
@@ -306,8 +254,8 @@ export const getOnlineStatus = (status: any) => {
     typeof status.lastSeen === "number"
       ? status.lastSeen
       : status.lastSeen?.toDate
-      ? status.lastSeen.toDate().getTime()
-      : null;
+        ? status.lastSeen.toDate().getTime()
+        : null;
 
   if (!lastSeen) return "Chưa xác định";
 
