@@ -4,7 +4,7 @@ import { TimeAtModel } from "./TimeAtModel";
 export interface PlanTaskModel {
   id: string;
   content: string;
-  // intervention: string;
+  intervention: string;
   targetId: string;
   planId: string;
   childId: string;

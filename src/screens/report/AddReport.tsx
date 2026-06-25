@@ -59,8 +59,6 @@ export default function AddReportScreen() {
   const [aiKeywordText, setAiKeywordText] = useState("");
   const [aiSelectedReport, setAiSelectedReport] = useState<any>(null);
   const [aiLoading, setAiLoading] = useState(false);
-  const [subTitle, setSubTitle] = useState("");
-  const { interventions } = useInterventionStore();
 
   const groupedReports = useMemo(() => {
     if (!addReports?.length) return [];
@@ -142,9 +140,9 @@ export default function AddReportScreen() {
   };
 
   const handleAddReport = async () => {
-    if (!user || !child || !plan || !subTitle.trim()) {
+    if (!user || !child || !plan ) {
       handleToastWarn(
-        "Thiếu dữ liệu cần thiết. Vui lòng kiểm tra lại. VD: Tuần 1-2",
+        "Thiếu dữ liệu cần thiết. Vui lòng kiểm tra lại",
       );
       return;
     }
@@ -154,7 +152,6 @@ export default function AddReportScreen() {
     try {
       const res = await httpsCallable<
         {
-          subTitle: string;
           childId: string;
           planId: string;
           addReports: any[];
@@ -175,7 +172,6 @@ export default function AddReportScreen() {
         functions,
         "createReportFromPlan",
       )({
-        subTitle,
         childId: child.id,
         planId: plan.id,
         addReports,
@@ -186,7 +182,6 @@ export default function AddReportScreen() {
         id: res.data.reportId,
         type: "BC",
         title: plan.title as string,
-        subTitle,
         childId: child.id,
         teacherIds: child.teacherIds,
         authorId: user.id,
@@ -437,25 +432,6 @@ export default function AddReportScreen() {
       prev.map((item) => (item.id === id ? { ...item, total: value } : item)),
     );
   };
-  const handleSelectIntervention = (
-    id: string,
-    value: string,
-    position: number,
-  ) => {
-    setAddReports((prev: any[]) =>
-      prev.map((item) => {
-        if (item.id !== id) return item;
-
-        const intervention = [...item.intervention];
-        intervention[position] = value;
-
-        return {
-          ...item,
-          intervention,
-        };
-      }),
-    );
-  };
 
   if (!plans) return <SpinnerComponent />;
   return (
@@ -544,39 +520,6 @@ export default function AddReportScreen() {
             <div className="flex-grow-1">
               <div className="d-flex flex-column flex-md-row align-items-md-center">
                 <h2 className="me-md-2 mb-2 mb-md-0">Nội dung báo cáo tuần</h2>
-
-                {/* <div className="sub-title-box me-md-2 mb-2 mb-md-0">
-                  <input
-                    value={subTitle}
-                    onChange={(e) => setSubTitle(e.target.value)}
-                    placeholder="Tuần 1-2; Tuần 3-4"
-                  />
-                </div> */}
-                <select
-                  className="subtitle-select mb-2 me-2"
-                  value={subTitle}
-                  onChange={(e) => setSubTitle(e.target.value)}
-                >
-                  <option value="-1">Chọn tuần</option>
-                  {[
-                    {
-                      value: "1-2",
-                      name: "Tuần 1-2",
-                    },
-                    {
-                      value: "3-4",
-                      name: "Tuần 3-4",
-                    },
-                  ].map((_, index) => (
-                    <option value={_.value} key={index}>
-                      {_.name}
-                    </option>
-                  ))}
-                </select>
-
-                {!subTitle.trim() && (
-                  <i className="text-danger">Dữ liệu tuần còn thiếu</i>
-                )}
               </div>
               <p>Nhập tổng kết, đánh giá hoặc dùng AI để gợi ý nhận xét.</p>
             </div>
@@ -591,11 +534,21 @@ export default function AddReportScreen() {
             <table>
               <thead>
                 <tr>
-                  <th style={{ width: "10%" }}>Lĩnh vực</th>
-                  <th style={{ width: "25%" }}>Mục tiêu</th>
-                  <th style={{ width: "20%" }}>Nội dung</th>
-                  <th style={{ width: "15%" }}>Mức độ trẻ thực hiện</th>
-                  <th style={{ width: "30%" }}>Tổng kết</th>
+                  <th style={{ width: "10%", textAlign: "center" }}>
+                    Lĩnh vực
+                  </th>
+                  <th style={{ width: "20%", textAlign: "center" }}>
+                    Mục tiêu
+                  </th>
+                  <th style={{ width: "30%", textAlign: "center" }}>
+                    Nội dung
+                  </th>
+                  <th style={{ width: "10%", textAlign: "center" }}>
+                    Mức độ hỗ trợ
+                  </th>
+                  <th style={{ width: "30%", textAlign: "center" }}>
+                    Tổng kết
+                  </th>
                 </tr>
               </thead>
 
@@ -605,9 +558,7 @@ export default function AddReportScreen() {
                     key={`${item.fieldId}-${item.id}`}
                     addReport={item}
                     onChangeTotal={handleChangeTotal}
-                    onSelectIntervention={handleSelectIntervention}
                     onOpenAiModal={handleOpenAiModal}
-                    interventions={interventions}
                     fieldMap={fieldMap}
                     targetMap={targetMap}
                   />
@@ -624,8 +575,6 @@ export default function AddReportScreen() {
                 index={index + 1}
                 onOpenAiModal={handleOpenAiModal}
                 onChangeTotal={handleChangeTotal}
-                onSelectIntervention={handleSelectIntervention}
-                interventions={interventions}
                 fieldMap={fieldMap}
                 targetMap={targetMap}
               />
@@ -710,8 +659,6 @@ function MobileGoalCard({
   index,
   onOpenAiModal,
   onChangeTotal,
-  interventions,
-  onSelectIntervention,
   fieldMap,
   targetMap,
 }: any) {
@@ -731,32 +678,11 @@ function MobileGoalCard({
       <div className="mobile-info-box">
         <strong>
           <i className={`bi bi-life-preserver`}></i>
-          Mức độ trẻ thực hiện
+          Mức độ hỗ trợ
         </strong>
-        <select
-          className="support-select"
-          value={(item.intervention && item.intervention[0]) || "-1"}
-          onChange={(e) => onSelectIntervention(item.id, e.target.value, 0)}
-        >
-          <option value="-1">Tuần trước</option>
-          {interventions.map((_: any) => (
-            <option value={_.level} key={_.id}>
-              {_.level} : {_.name}
-            </option>
-          ))}
-        </select>
-        <select
-          className="support-select"
-          value={(item.intervention && item.intervention[1]) || "-1"}
-          onChange={(e) => onSelectIntervention(item.id, e.target.value, 1)}
-        >
-          <option value="-1">Tuần sau</option>
-          {interventions.map((_: any) => (
-            <option value={_.level} key={_.id}>
-              {_.level} : {_.name}
-            </option>
-          ))}
-        </select>
+        <div className="add-mobile-content">
+          {item.intervention || "Chưa có"}
+        </div>
       </div>
 
       <div className="summary-box">

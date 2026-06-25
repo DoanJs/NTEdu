@@ -1,25 +1,14 @@
-import { InterventionModel } from "../../models";
-
 interface Props {
   addReport: any;
-  interventions: InterventionModel[];
   onOpenAiModal: (report: any) => void;
   onChangeTotal: (id: string, value: string) => void;
-  onSelectIntervention: (id: string, value: string, position: number) => void;
   fieldMap: any;
   targetMap: any;
 }
 
 export default function AddReportItem(props: Props) {
-  const {
-    addReport,
-    onOpenAiModal,
-    onChangeTotal,
-    onSelectIntervention,
-    interventions,
-    fieldMap,
-    targetMap,
-  } = props;
+  const { addReport, onOpenAiModal, onChangeTotal, fieldMap, targetMap } =
+    props;
 
   return (
     <tr>
@@ -29,41 +18,13 @@ export default function AddReportItem(props: Props) {
       <td style={{ textAlign: "justify" }}>
         <strong>{targetMap[addReport.targetId]?.name}</strong>
         <div className="level-pill">
-          {" "}
           Level: {targetMap[addReport.targetId]?.level}
         </div>
       </td>
-      <td>{addReport.content || "Chưa có nội dung"}</td>
-      <td>
-        <select
-          className="support-select"
-          value={(addReport.intervention && addReport.intervention[0]) || "-1"}
-          onChange={(e) =>
-            onSelectIntervention(addReport.id, e.target.value, 0)
-          }
-        >
-          <option value="-1">Tuần trước</option>
-          {interventions.map((_) => (
-            <option value={_.level} key={_.id}>
-             {_.level} : {_.name}
-            </option>
-          ))}
-        </select>
-        <select
-          className="support-select"
-          value={(addReport.intervention && addReport.intervention[1]) || "-1"}
-          onChange={(e) =>
-            onSelectIntervention(addReport.id, e.target.value, 1)
-          }
-        >
-          <option value="-1">Tuần sau</option>
-          {interventions.map((_) => (
-            <option value={_.level} key={_.id}>
-              {_.level} : {_.name}
-            </option>
-          ))}
-        </select>
+      <td style={{ textAlign: "justify" }}>
+        {addReport.content || "Chưa có nội dung"}
       </td>
+      <td>{addReport.intervention || "Chưa có"}</td>
       <td className="observe-cell">
         <div className="summary-ai-wrap">
           <textarea

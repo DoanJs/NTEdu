@@ -146,7 +146,7 @@ export default function PlanDetailScreen() {
             .nameField,
           target: convertTargetField(planTask.targetId, targets, fields)
             .nameTarget,
-          // intervention: planTask.intervention,
+          intervention: planTask.intervention,
           content: planTask.content,
         };
       },
@@ -318,8 +318,7 @@ export default function PlanDetailScreen() {
         <InfoTile
           icon="bi-person-check-fill"
           label="Giáo viên thực hiện"
-          value={teacherMap[plan.authorId]?.fullName || ""
-          }
+          value={teacherMap[plan.authorId]?.fullName || ""}
           danger
         />
         <InfoTile
@@ -329,8 +328,8 @@ export default function PlanDetailScreen() {
             typeof plan?.createAt === "number"
               ? moment(plan?.createAt).format("HH:mm:ss DD/MM/YYYY")
               : moment(handleTimeStampFirestore(plan?.createAt)).format(
-                "HH:mm:ss DD/MM/YYYY",
-              )
+                  "HH:mm:ss DD/MM/YYYY",
+                )
           }
         />
         <InfoTile
@@ -361,11 +360,11 @@ export default function PlanDetailScreen() {
                 vào lúc{" "}
                 {typeof myComments[0]?.createAt === "number"
                   ? moment(myComments[0]?.createAt).format(
-                    "HH:mm:ss DD/MM/YYYY",
-                  )
+                      "HH:mm:ss DD/MM/YYYY",
+                    )
                   : moment(
-                    handleTimeStampFirestore(myComments[0]?.createAt),
-                  ).format("HH:mm:ss DD/MM/YYYY")}
+                      handleTimeStampFirestore(myComments[0]?.createAt),
+                    ).format("HH:mm:ss DD/MM/YYYY")}
                 :
               </span>
 
@@ -402,10 +401,10 @@ export default function PlanDetailScreen() {
           <table>
             <thead>
               <tr>
-                <th>Lĩnh vực</th>
-                <th>Mục tiêu</th>
-                {/* <th>Mức độ hỗ trợ</th> */}
-                <th>Nội dung</th>
+                <th style={{ textAlign: "center" }}>Lĩnh vực</th>
+                <th style={{ textAlign: "center" }}>Mục tiêu</th>
+                <th style={{ textAlign: "center" }}>Mức độ hỗ trợ</th>
+                <th style={{ textAlign: "center" }}>Nội dung</th>
               </tr>
             </thead>
 
@@ -427,7 +426,7 @@ export default function PlanDetailScreen() {
                           Level {data.levelTarget}
                         </div>
                       </td>
-                      {/* <td>{item.intervention}</td> */}
+                      <td>{item.intervention}</td>
                       <td style={{ textAlign: "justify" }}>{item.content}</td>
                     </tr>
                   );
@@ -513,11 +512,11 @@ export default function PlanDetailScreen() {
                           <td>
                             {typeof cmt?.createAt === "number"
                               ? moment(cmt?.createAt).format(
-                                "HH:mm:ss DD/MM/YYYY",
-                              )
+                                  "HH:mm:ss DD/MM/YYYY",
+                                )
                               : moment(
-                                handleTimeStampFirestore(cmt?.createAt),
-                              ).format("HH:mm:ss DD/MM/YYYY")}
+                                  handleTimeStampFirestore(cmt?.createAt),
+                                ).format("HH:mm:ss DD/MM/YYYY")}
                           </td>
 
                           <td className="d-flex align-items-center">
@@ -548,17 +547,17 @@ export default function PlanDetailScreen() {
               {["Phó Giám đốc", "Giám đốc"].includes(
                 user?.position as string,
               ) && (
-                  <button
-                    className="btn action-btn-soft cmt-user"
-                    onClick={() => {
-                      setHistoryComment(false);
-                      setShowFeedback(true);
-                    }}
-                  >
-                    <i className="bi bi-chat-left-dots-fill me-2 icon-yellow" />
-                    Góp ý
-                  </button>
-                )}
+                <button
+                  className="btn action-btn-soft cmt-user"
+                  onClick={() => {
+                    setHistoryComment(false);
+                    setShowFeedback(true);
+                  }}
+                >
+                  <i className="bi bi-chat-left-dots-fill me-2 icon-yellow" />
+                  Góp ý
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -673,9 +672,9 @@ function GoalMobileCard({
         {targetMap[item.targetId]?.name}
       </h3>
 
-      {/* <div className="mobile-info-box">
+      <div className="mobile-info-box">
         <strong>Mức độ hỗ trợ:</strong> {item.intervention}
-      </div> */}
+      </div>
 
       <div className="mobile-info-box">
         <strong>Nội dung:</strong> {targetMap[item.targetId]?.content}

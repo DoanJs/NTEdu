@@ -5,7 +5,6 @@ export interface ReportModel {
   id: string;
   type:string
   title: string;
-  subTitle: string;
   childId: string
   teacherIds: string[]
   authorId: string
