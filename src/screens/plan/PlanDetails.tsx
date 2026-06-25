@@ -156,9 +156,9 @@ export default function PlanDetailScreen() {
       {
         rows: items,
         title: plan.title.trim(),
-        child: child?.fullName,
+        child: child?.fullName || "",
         birthChild: getChildAge(child?.birth),
-        teacher: user?.fullName,
+        teacher: user?.fullName || "",
         rangeTime: `Từ ngày ${getMonthRange(plan.title).firstDay} đến ngày ${getMonthRange(plan.title).lastDay}`,
       },
       "/template_KH.docx",
@@ -318,7 +318,7 @@ export default function PlanDetailScreen() {
         <InfoTile
           icon="bi-person-check-fill"
           label="Giáo viên thực hiện"
-          value={teacherMap[plan.authorId].fullName
+          value={teacherMap[plan.authorId]?.fullName || ""
           }
           danger
         />
@@ -527,7 +527,7 @@ export default function PlanDetailScreen() {
                               className="comment-avatar"
                             />
                             <div className="fw-semibold text-green-dark">
-                              {teacherMap[cmt.authorId]?.fullName}
+                              {teacherMap[cmt.authorId]?.fullName || ""}
                             </div>
                           </td>
 

@@ -439,7 +439,7 @@ export default function DashBoard() {
               className="user-info-box"
               image={child?.avatar || logoUrl}
               title={child?.fullName || "Child Name"}
-              subtitle={getChildAge(child?.birth) || "X tuổi"}
+              subtitle={getChildAge(child?.birth) || "Chưa xác định"}
             />
 
             <div className="teacher-box">

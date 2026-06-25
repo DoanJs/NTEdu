@@ -21,7 +21,7 @@ export default function SplashScreen({
 
               <div className="splash-logo-wrapper">
                 <img
-                  src="/NSXEdu-icon-512x512.png"
+                  src="/NTEdu-icon-512x512.png"
                   alt="Logo"
                   className="img-fluid splash-logo mb-4"
                 />
