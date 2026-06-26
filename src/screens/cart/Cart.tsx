@@ -131,6 +131,7 @@ export default function CartScreen() {
           planId: cartEdit,
           childId: child.id,
           carts,
+          title
         });
 
         const index = plans.findIndex((item) => item.id === cartEdit);
@@ -138,6 +139,7 @@ export default function CartScreen() {
         if (index !== -1) {
           editPlan(cartEdit, {
             ...plans[index],
+            title,
             updateById: user.id,
             updateAt: Date.now(),
           });
@@ -252,17 +254,10 @@ export default function CartScreen() {
             className="form-select filter-select"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            disabled={cartEdit}
           >
-            {cartEdit ? (
-              <option value={plan?.title}>{plan?.title}</option>
-            ) : (
-              <>
-                <option value={getPreviousMonth()}>{getPreviousMonth()}</option>
-                <option value={getCurrentMonth()}>{getCurrentMonth()}</option>
-                <option value={getNextMonth()}>{getNextMonth()}</option>
-              </>
-            )}
+            <option value={getPreviousMonth()}>{getPreviousMonth()}</option>
+            <option value={getCurrentMonth()}>{getCurrentMonth()}</option>
+            <option value={getNextMonth()}>{getNextMonth()}</option>
           </select>
 
           <div className="total-row">
@@ -316,7 +311,7 @@ function GoalCard({
   interventions: any[]
 }) {
   const { removeCart, editCart } = useCartStore();
-const handleSelectIntervention = (val: string) => {
+  const handleSelectIntervention = (val: string) => {
     editCart(goal.id, { ...goal, intervention: val });
   };
 
