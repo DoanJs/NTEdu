@@ -284,9 +284,6 @@ function ReportCard({
             <h3 className="me-2">
               {report.type} {report.title}
             </h3>
-            <h6>
-              <i>Tuần {report.subTitle}</i>
-            </h6>
           </div>
           <p>
             <i className="bi bi-person-fill"></i>
@@ -326,35 +323,6 @@ function ReportCard({
           </strong>
         </div>
       </div>
-
-      {/* <div className="progress-box">
-        <div className="d-flex justify-content-between">
-          <strong>Tiến độ mục tiêu</strong>
-          <span>{report.progress}%</span>
-        </div>
-
-        <div className="progress report-progress">
-          <div
-            className="progress-bar"
-            style={{ width: `${report.progress}%` }}
-          ></div>
-        </div>
-
-        <div className="report-kpi">
-          <div>
-            <b>{report.goals}</b>
-            <span>Mục tiêu</span>
-          </div>
-          <div>
-            <b>{report.achieved}</b>
-            <span>Đạt</span>
-          </div>
-          <div>
-            <b>{report.month}</b>
-            <span>Kỳ báo cáo</span>
-          </div>
-        </div>
-      </div> */}
 
       <div className="report-actions">
         <Link

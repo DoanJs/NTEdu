@@ -107,7 +107,7 @@ export default function BankScreen() {
         fieldId: target.fieldId,
 
         content: target.content || "",
-        // intervention: "",
+        intervention: "",
         childId: child.id,
         teacherIds: child.teacherIds,
         authorId: user.id,
@@ -390,7 +390,6 @@ function CategoryCard({
       className={`category-card ${active ? "active" : ""}`}
       onClick={onClick}
     >
-      {/* <i className={`bi ${showUIIconTarget(category.name)}`}></i> */}
       <img
         src={`/icons/${showUIIconTarget(category.name)}`}
         alt={category.name}
@@ -407,7 +406,6 @@ function CategoryCard({
       </div>
 
       <div className="cat-progress">
-        {/* <div style={{ width: `${50}%` }} /> */}
         <div
           style={{
             width: `${Number(calculateProgressPercent(baseLevels, reportLevels).toFixed(2))}%`,
@@ -419,44 +417,6 @@ function CategoryCard({
         {Number(calculateProgressPercent(baseLevels, reportLevels).toFixed(2))}%
       </strong>
     </button>
-    // <button
-    //   type="button"
-    //   className={`category-card ${active ? "active" : ""}`}
-    //   onClick={onClick}
-    // >
-    //   <div className="category-icon">
-    //     <i className={`bi ${showUIIconTarget(category.name)}`} />
-    //   </div>
-    //   <div className="category-name">{category.name}</div>
-    //   <div className="d-flex align-items-center justify-content-between small mt-3">
-    //     <span className="text-green-muted">
-    //       {targets.filter((_: any) => _.fieldId === category.id).length} mục
-    //       tiêu
-    //     </span>
-    //     <span className="selected-count">
-    //       {selectedCountByField[category.id] ?? 0} đã chọn
-    //     </span>
-    //   </div>
-    //   <div
-    //     className="progress category-progress mt-2"
-    //     role="progressbar"
-    //     aria-valuenow={Number(
-    //       calculateProgressPercent(baseLevels, reportLevels).toFixed(2),
-    //     )}
-    //     aria-valuemin={0}
-    //     aria-valuemax={100}
-    //   >
-    //     <div
-    //       className="progress-bar"
-    //       style={{
-    //         width: `${Number(calculateProgressPercent(baseLevels, reportLevels).toFixed(2))}%`,
-    //       }}
-    //     />
-    //   </div>
-    //   <div className="text-end small fw-bold text-green-dark mt-1">
-    //     {Number(calculateProgressPercent(baseLevels, reportLevels).toFixed(2))}%
-    //   </div>
-    // </button>
   );
 }
 

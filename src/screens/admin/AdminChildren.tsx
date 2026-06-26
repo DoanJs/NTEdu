@@ -120,7 +120,7 @@ export default function ChildrenScreen() {
 
     const data = {
       fullName: form.fullName,
-      avatar: avatarPreview || "/NSXEdu-icon-512x512.png",
+      avatar: avatarPreview || "/NTEdu-icon-512x512.png",
       status: form.status,
       shortName: form.shortName,
       birth: form.birth,
@@ -174,10 +174,10 @@ export default function ChildrenScreen() {
           prev.map((child) =>
             child.id === childEdit.id
               ? {
-                  ...child,
-                  ...data,
-                  updateAt: new Date(),
-                }
+                ...child,
+                ...data,
+                updateAt: new Date(),
+              }
               : child,
           ),
         );
@@ -223,7 +223,7 @@ export default function ChildrenScreen() {
       }
 
       handleCreateNew()
-      
+
     } catch (err: any) {
       console.error(err);
 
@@ -309,15 +309,6 @@ export default function ChildrenScreen() {
         ${deleted.carts} giỏ nháp, 
         ${deleted.reportSaveds} chi tiết báo cáo nháp`,
       );
-
-      // console.log("Chi tiết dữ liệu đã xóa:", {
-      //   carts: deleted.carts,
-      //   plans: deleted.plans,
-      //   planTasks: deleted.planTasks,
-      //   reports: deleted.reports,
-      //   reportTasks: deleted.reportTasks,
-      //   reportSaveds: deleted.reportSaveds,
-      // });
     } catch (err: any) {
       console.error(err);
 
@@ -343,7 +334,7 @@ export default function ChildrenScreen() {
     setAvatarFile(file);
     setAvatarPreview(URL.createObjectURL(file));
   };
-const scrollToEditForm = () => {
+  const scrollToEditForm = () => {
     if (window.innerWidth >= 1200) return;
 
     setTimeout(() => {
@@ -517,7 +508,7 @@ const scrollToEditForm = () => {
                 <span>Ảnh đại diện:</span>
                 <div className="text-center mb-2">
                   <img
-                    src={avatarPreview || "/NSXEdu-icon-512x512.png"}
+                    src={avatarPreview || "/NTEdu-icon-512x512.png"}
                     className="child-avatar me-3"
                     alt="avatar"
                   />

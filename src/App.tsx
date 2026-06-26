@@ -1,4 +1,4 @@
-import { onAuthStateChanged, signOut, updateProfile, User } from "firebase/auth";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -6,6 +6,7 @@ import { ToastContainer } from "./components";
 import { handleToastWarn } from "./constants/handleToast";
 import { ADMINID } from "./constants/info";
 import { auth, db } from "./firebase.config";
+import { usePresence } from "./hooks/usePresence";
 import AdminScreen from "./screens/admin/AdminScreen";
 import ForgotPasswordBootstrapGreen from "./screens/auth/ForgotPasswordScreen";
 import LoginBootstrapGreen from "./screens/auth/LoginScreen";
@@ -22,10 +23,9 @@ import AddReportBootstrapGreen from "./screens/report/AddReport";
 import ReportDetailBootstrapGreen from "./screens/report/ReportDetails";
 import ApprovedReportBootstrapGreen from "./screens/report/Reports";
 import ScrollButtons from "./screens/scroll/ScrollButtons";
+import UserSettingPage from "./screens/setting/Setting";
 import SplashScreen from "./screens/splash/SplashScreen";
 import { useUserStore } from "./zustand";
-import UserSettingPage from "./screens/setting/Setting";
-import { usePresence } from "./hooks/usePresence";
 
 type AuthState = {
   user: User | null;
@@ -34,44 +34,6 @@ type AuthState = {
 
 export default function App() {
   usePresence();
-  
-  // const { setUser } = useUserStore();
-  // const [authState, setAuthState] = useState<AuthState>({
-  //   user: null,
-  //   isLoading: true,
-  // });
-
-  // useEffect(() => {
-  //   const unsub = onAuthStateChanged(auth, (currentUser) => {
-  //     setAuthState({ user: currentUser, isLoading: false });
-
-  //     if (currentUser) {
-  //       // chỉ fetch khi có user
-  //       try {
-  //         getDoc(doc(db, "users", currentUser.uid as string))
-  //           .then(async (result) => {
-  //             setUser({ ...result.data(), id: currentUser.uid } as UserModel);
-  //           })
-  //           .catch(async () => {
-  //             await signOut(auth);
-  //             handleToastWarn(
-  //               "Tài khoản chưa được cấp quyền, vui lòng liên hệ admin !",
-  //             );
-  //           });
-  //       } catch (error) {
-  //         console.log("error: ", error);
-  //       }
-  //     } else {
-  //       // clear user khi logout
-  //       setUser(null);
-  //     }
-  //   });
-  //   return () => unsub();
-  // }, [setUser]);
-
-  // if (authState.isLoading) {
-  //   return <SpinnerComponent />;
-  // }
 
   const { setUser } = useUserStore();
   const [authState, setAuthState] = useState<AuthState>({
@@ -219,7 +181,6 @@ export default function App() {
           <Route path="pending" element={<PendingApprovalBootstrapGreen />} />
           {/* <Route path="media" element={<MediaLibraryBootstrapGreen />} /> */}
           <Route path="cart" element={<GoalCartBootstrapGreen />} />
-          {/* <Route path="setting" element={<Setting />} /> */}
           <Route path="changepassword" element={<ChangePassword />} />
           <Route path="setting" element={<UserSettingPage />} />
           <Route

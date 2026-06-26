@@ -2,7 +2,7 @@ import { Bounce, toast } from "react-toastify";
 
 export const handleToastSuccess = (text: string) => toast.success(`${text}`, {
     position: "top-right",
-    autoClose: 5000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: false,
     pauseOnHover: true,
@@ -13,7 +13,7 @@ export const handleToastSuccess = (text: string) => toast.success(`${text}`, {
 });
 export const handleToastWarn = (text: string) => toast.warn(`${text}`, {
     position: "top-right",
-    autoClose: 5000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: false,
     pauseOnHover: true,
@@ -24,7 +24,7 @@ export const handleToastWarn = (text: string) => toast.warn(`${text}`, {
 });
 export const handleToastError = (text: string) => toast.error(`${text}`, {
     position: "top-right",
-    autoClose: 5000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: false,
     pauseOnHover: true,
@@ -35,7 +35,7 @@ export const handleToastError = (text: string) => toast.error(`${text}`, {
 });
 export const handleToastInfo = (text: string) => toast.info(`${text}`, {
     position: "top-right",
-    autoClose: 5000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: false,
     pauseOnHover: true,
@@ -46,7 +46,7 @@ export const handleToastInfo = (text: string) => toast.info(`${text}`, {
 });
 export const handleToastDefault = (text: string) => toast(`${text}`, {
     position: "top-right",
-    autoClose: 5000,
+    autoClose: 2000,
     hideProgressBar: false,
     closeOnClick: false,
     pauseOnHover: true,

@@ -1,12 +1,10 @@
 import { signOut } from "firebase/auth";
 import { onValue, ref, set } from "firebase/database";
-import { serverTimestamp, where } from "firebase/firestore";
+import { where } from "firebase/firestore";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Logo, SpinnerComponent } from "../../components";
 import LoadingOverlay from "../../components/LoadingOverLay";
-import { fieldData } from "../../constants/database/fieldData";
-import { addDocData } from "../../constants/firebase/addDocData";
 import { getDocsData } from "../../constants/firebase/getDocsData";
 import {
   handleToastError,
@@ -18,7 +16,6 @@ import { auth, rtdb } from "../../firebase.config";
 import { ChildrenModel } from "../../models";
 import { useChildrenStore, useTeacherStore, useUserStore } from "../../zustand";
 import "./children.css";
-import { targetData } from "../../constants/database/targetData";
 
 export default function HomeStudentsBootstrapGreen() {
   const navigate = useNavigate();
@@ -154,7 +151,7 @@ export default function HomeStudentsBootstrapGreen() {
   };
   // -----------------test add data-----------------
   // const addDataToFirebase = async () => {
-    
+
   //   // const promiseItems = targetData.map((_) =>
   //   //   addDocData({
   //   //     nameCollect: "targets",

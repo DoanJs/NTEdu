@@ -82,10 +82,10 @@ export default function CartScreen() {
 
     Promise.all(promiseItems)
       .then(() => {
-        handleToastSuccess("Lưu nháp giỏ hàng thành công !");
+        handleToastSuccess("Lưu nháp giỏ mục tiêu thành công !");
       })
       .catch((error) => {
-        handleToastError("Lưu nháp giỏ hàng thất bại !");
+        handleToastError("Lưu nháp giỏ mục tiêu thất bại !");
         console.log(error);
       })
       .finally(() => {

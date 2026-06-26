@@ -10,9 +10,10 @@ import {
   handleToastError,
   handleToastSuccess,
 } from "../../constants/handleToast";
+import { getOnlineStatus } from "../../constants/info";
+import { uploadTeacherAvatar } from "../../constants/uploadAvatar";
 import { functions, rtdb } from "../../firebase.config";
 import { useUserStore } from "../../zustand";
-import { getOnlineStatus } from "../../constants/info";
 
 export default function AdminTeacher() {
   const { user } = useUserStore();
@@ -22,12 +23,14 @@ export default function AdminTeacher() {
   const [teachers, setTeachers] = useState<any[]>([]);
   const [keyword, setKeyword] = useState("");
   const [showDelete, setShowDelete] = useState(false);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState("");
   const formRef = useRef<HTMLDivElement>(null);
 
   const [form, setForm] = useState({
     id: "",
     fullName: "",
-    avatar: "",
+    // avatar: "",
     email: "",
     position: "",
     role: "",
@@ -78,12 +81,14 @@ export default function AdminTeacher() {
       setForm({
         id: teacherEdit.id || "",
         fullName: teacherEdit.fullName || "",
-        avatar: teacherEdit.avatar || "",
+        // avatar: teacherEdit.avatar || "",
         email: teacherEdit.email || "",
         position: teacherEdit.position || "",
         role: teacherEdit.role || "",
         telegramChatId: teacherEdit.telegramChatId || "",
       });
+
+      setAvatarPreview(teacherEdit.avatar);
     }
   }, [teacherEdit]);
 
@@ -92,18 +97,19 @@ export default function AdminTeacher() {
     setForm({
       id: "",
       fullName: "",
-      avatar: "",
+      // avatar: "",
       email: "",
       position: "",
       role: "",
       telegramChatId: "",
     });
+    setAvatarPreview('/NTEdu-icon-512x512.png')
   };
 
   const handleTeacher = async () => {
     const data = {
       fullName: form.fullName,
-      avatar: form.avatar,
+      avatar: avatarPreview || "/NTEdu-icon-512x512.png",
       email: form.email,
       position: form.position,
       role: form.role,
@@ -117,11 +123,23 @@ export default function AdminTeacher() {
     setIsLoading(true);
 
     if (teacherEdit) {
+      let avatar = data.avatar
+
+      if (avatarFile) {
+        const resultAvatar = await uploadTeacherAvatar(
+          avatarFile,
+          teacherEdit.id,
+        );
+
+        avatar = resultAvatar.avatar;
+      }
+
       updateDocData({
         nameCollect: "users",
         id: teacherEdit.id,
         valueUpdate: {
           ...data,
+          avatar,
           updateAt: serverTimestamp(),
         },
         metaDoc: "users",
@@ -131,10 +149,10 @@ export default function AdminTeacher() {
             prev.map((teacher) =>
               teacher.id === teacherEdit.id
                 ? {
-                    ...teacher,
-                    ...data,
-                    updateAt: new Date(),
-                  }
+                  ...teacher,
+                  ...data,
+                  updateAt: new Date(),
+                }
                 : teacher,
             ),
           );
@@ -248,6 +266,14 @@ export default function AdminTeacher() {
       setIsLoading(false);
     }
   };
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    setAvatarFile(file);
+    setAvatarPreview(URL.createObjectURL(file));
+  };
   const scrollToEditForm = () => {
     if (window.innerWidth >= 1200) return;
 
@@ -298,16 +324,15 @@ export default function AdminTeacher() {
                           <div className="teacher-name">{teacher.fullName}</div>
                           <p className="small text-muted mb-0">
                             {getOnlineStatus(teacherStatus?.[teacher.id])}
-                             {/* {JSON.stringify(teacherStatus?.[teacher.id])} */}
+                            {/* {JSON.stringify(teacherStatus?.[teacher.id])} */}
                           </p>
                           <div className="teacher-id">{teacher.id}</div>
                         </td>
 
                         <td>
                           <span
-                            className={`role-badge ${
-                              teacher.role === "admin" ? "admin" : "teacher"
-                            }`}
+                            className={`role-badge ${teacher.role === "admin" ? "admin" : "teacher"
+                              }`}
                           >
                             {teacher.role}
                           </span>
@@ -365,7 +390,7 @@ export default function AdminTeacher() {
 
               <form className="d-flex flex-column gap-3">
                 <input
-                  disabled={teacherEdit}
+                  disabled={true}
                   className="form-control mb-2"
                   placeholder="Liên hệ admin để lấy ID giáo viên"
                   value={form.id}
@@ -378,21 +403,44 @@ export default function AdminTeacher() {
                   onChange={(e) =>
                     setForm({ ...form, fullName: e.target.value })
                   }
+                  disabled={!teacherEdit}
                 />
 
-                <label className="form-label">Avatar:</label>
+                {/* <label className="form-label">Avatar:</label>
                 <input
                   className="form-control mb-2"
                   value={form.avatar}
                   onChange={(e) => setForm({ ...form, avatar: e.target.value })}
-                />
+                /> */}
+                <span>Ảnh đại diện:</span>
+                <div className="d-flex justify-content-center align-items-center text-center mb-2">
+                  <img
+                    src={avatarPreview || "/NTEdu-icon-512x512.png"}
+                    className="teacher-avatar me-3"
+                    alt="avatar"
+                  />
+
+                  <input
+                    type="file"
+                    id="childAvatar"
+                    hidden
+                    accept="image/*"
+                    onChange={handleAvatarChange}
+                    disabled={!teacherEdit}
+                  />
+
+                  <label htmlFor="childAvatar" className="btn btn-light mt-2">
+                    <i className="bi bi-camera me-2"></i>
+                    Đổi ảnh
+                  </label>
+                </div>
 
                 <label className="form-label">Email:</label>
                 <input
                   className="form-control mb-2"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  disabled={teacherEdit}
+                  disabled={true}
                 />
 
                 <label className="form-label">Vị trí:</label>
@@ -402,6 +450,7 @@ export default function AdminTeacher() {
                   onChange={(e) =>
                     setForm({ ...form, position: e.target.value })
                   }
+                  disabled={!teacherEdit}
                 >
                   <option value="">Chọn</option>
                   <option value="Giám đốc">Giám đốc</option>
@@ -414,6 +463,7 @@ export default function AdminTeacher() {
                   className="form-select mb-3"
                   value={form.role}
                   onChange={(e) => setForm({ ...form, role: e.target.value })}
+                  disabled={!teacherEdit}
                 >
                   <option value="">Chọn</option>
                   <option value="teacher">teacher</option>
@@ -427,14 +477,15 @@ export default function AdminTeacher() {
                   onChange={(e) =>
                     setForm({ ...form, telegramChatId: e.target.value })
                   }
+                  disabled={!teacherEdit}
                 />
 
                 <button
                   className="btn action-btn-primary w-100"
-                  disabled={isDisabled || isLoading}
+                  disabled={isDisabled || isLoading || !teacherEdit}
                   onClick={handleTeacher}
                 >
-                  {teacherEdit ? "Cập nhật" : "Thêm mới"}
+                  {teacherEdit ? "Cập nhật" : "Không được phép thêm mới ở đây"}
                 </button>
               </form>
             </div>
@@ -806,7 +857,13 @@ const css = `
   color: #6b7280;
   cursor: not-allowed;
 }
-
+.teacher-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e8f5e9;
+}
 /* MOBILE */
 
 @media (max-width:1200px){
