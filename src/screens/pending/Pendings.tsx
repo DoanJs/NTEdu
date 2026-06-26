@@ -166,11 +166,6 @@ function PendingCard({
               <h3 className="me-2">
                 {item.type} {item.title}
               </h3>
-              <h6>
-                <i>
-                  {isReport && "Tuần"} {item.subTitle}
-                </i>
-              </h6>
             </div>
             <p>
               <i className="bi bi-person-fill"></i>

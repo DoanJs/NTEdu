@@ -23,7 +23,7 @@ import {
   handleToastError,
   handleToastSuccess,
 } from "../../constants/handleToast";
-import { getChildAge, getMonthRange } from "../../constants/info";
+import { getChildAge } from "../../constants/info";
 import { exportWord } from "../../exportFile/WordExport";
 import { db, functions } from "../../firebase.config";
 import { PlanTaskModel, ReportTaskModel } from "../../models";
@@ -186,32 +186,17 @@ export default function ReportDetailScreen() {
     setIsLoading(true);
     const promiseItems = handleGroupReportWithField(reportTasks).map(
       async (reportTask: ReportTaskModel) => {
-        let intervention1 = "";
-        let intervention2 = "";
-        let intervention3 = "";
-        let intervention4 = "";
-
-        if (report.subTitle === "1-2") {
-          intervention1 = reportTask.intervention[0] || "";
-          intervention2 = reportTask.intervention[1] || "";
-        } else {
-          intervention3 = reportTask.intervention[0] || "";
-          intervention4 = reportTask.intervention[1] || "";
-        }
         const docSnap = await getDoc(
           doc(db, "planTasks", reportTask.planTaskId),
         );
         if (docSnap.exists()) {
           return {
+            intervention: docSnap.data().intervention,
             field: convertTargetField(docSnap.data().targetId, targets, fields)
               .nameField,
             target: convertTargetField(docSnap.data().targetId, targets, fields)
               .nameTarget,
             content: docSnap.data().content,
-            intervention1,
-            intervention2,
-            intervention3,
-            intervention4,
             total: reportTask.content,
           };
         } else {
@@ -228,7 +213,6 @@ export default function ReportDetailScreen() {
         child: child?.fullName,
         birthChild: getChildAge(child?.birth),
         teacher: user?.fullName,
-        rangeTime: `Từ ngày ${getMonthRange(report.title).firstDay} đến ngày ${getMonthRange(report.title).lastDay}`,
       },
       "/template_BC.docx",
     );
@@ -375,9 +359,6 @@ export default function ReportDetailScreen() {
             <h1>
               {report.type} {report.title}
             </h1>
-            <h6>
-              <i>Tuần {report.subTitle}</i>
-            </h6>
 
             {isPending ? (
               <span className="pending-badge">
@@ -416,8 +397,8 @@ export default function ReportDetailScreen() {
             typeof report?.createAt === "number"
               ? moment(report?.createAt).format("HH:mm:ss DD/MM/YYYY")
               : moment(handleTimeStampFirestore(report?.createAt)).format(
-                  "HH:mm:ss DD/MM/YYYY",
-                )
+                "HH:mm:ss DD/MM/YYYY",
+              )
           }
         />
         <InfoTile
@@ -449,11 +430,11 @@ export default function ReportDetailScreen() {
                 vào lúc{" "}
                 {typeof myComments[0]?.createAt === "number"
                   ? moment(myComments[0]?.createAt).format(
-                      "HH:mm:ss DD/MM/YYYY",
-                    )
+                    "HH:mm:ss DD/MM/YYYY",
+                  )
                   : moment(
-                      handleTimeStampFirestore(myComments[0]?.createAt),
-                    ).format("HH:mm:ss DD/MM/YYYY")}
+                    handleTimeStampFirestore(myComments[0]?.createAt),
+                  ).format("HH:mm:ss DD/MM/YYYY")}
                 :
               </span>
 
@@ -490,11 +471,11 @@ export default function ReportDetailScreen() {
           <table>
             <thead>
               <tr>
-                <th>Lĩnh vực</th>
-                <th>Mục tiêu</th>
-                <th>Nội dung</th>
-                <th>Mức độ trẻ thực hiện</th>
-                <th>Tổng kết</th>
+                <th style={{ textAlign: 'center' }}>Lĩnh vực</th>
+                <th style={{ textAlign: 'center' }}>Mục tiêu</th>
+                <th style={{ textAlign: 'center' }}>Nội dung</th>
+                <th style={{ textAlign: 'center' }}>Mức độ hỗ trợ</th>
+                <th style={{ textAlign: 'center' }}>Tổng kết</th>
               </tr>
             </thead>
 
@@ -507,7 +488,6 @@ export default function ReportDetailScreen() {
                   reportTasks={reportTasks}
                   onSetReportTasks={setReportTasks}
                   status={report.status}
-                  interventions={interventions}
                   fieldMap={fieldMap}
                   targetMap={targetMap}
                 />
@@ -598,11 +578,11 @@ export default function ReportDetailScreen() {
                           <td>
                             {typeof cmt?.createAt === "number"
                               ? moment(cmt?.createAt).format(
-                                  "HH:mm:ss DD/MM/YYYY",
-                                )
+                                "HH:mm:ss DD/MM/YYYY",
+                              )
                               : moment(
-                                  handleTimeStampFirestore(cmt?.createAt),
-                                ).format("HH:mm:ss DD/MM/YYYY")}
+                                handleTimeStampFirestore(cmt?.createAt),
+                              ).format("HH:mm:ss DD/MM/YYYY")}
                           </td>
 
                           <td className="d-flex align-items-center">
@@ -633,17 +613,17 @@ export default function ReportDetailScreen() {
               {["Phó Giám đốc", "Giám đốc"].includes(
                 user?.position as string,
               ) && (
-                <button
-                  className="btn action-btn-soft cmt-user"
-                  onClick={() => {
-                    setHistoryComment(false);
-                    setShowFeedback(true);
-                  }}
-                >
-                  <i className="bi bi-chat-left-dots-fill me-2 icon-yellow" />
-                  Góp ý
-                </button>
-              )}
+                  <button
+                    className="btn action-btn-soft cmt-user"
+                    onClick={() => {
+                      setHistoryComment(false);
+                      setShowFeedback(true);
+                    }}
+                  >
+                    <i className="bi bi-chat-left-dots-fill me-2 icon-yellow" />
+                    Góp ý
+                  </button>
+                )}
             </div>
           </div>
         </div>
@@ -747,7 +727,6 @@ function ReportMobileCard({
   const [planTask, setPlanTask] = useState<any>();
   const [content, setContent] = useState("");
   const [contentSource, setContentSource] = useState("");
-  const [intervention, setIntervention] = useState(["-1", "-1"]);
 
   useEffect(() => {
     if (item) {
@@ -758,7 +737,6 @@ function ReportMobileCard({
       });
       setContent(item.content);
       setContentSource(item.content);
-      setIntervention(item.intervention);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [item]);
@@ -793,51 +771,8 @@ function ReportMobileCard({
       </h3>
 
       <div className="mobile-info-box">
-        <strong>Mức độ trẻ thực hiện: </strong>
-        <select
-          disabled={status !== "pending"}
-          className="support-select"
-          value={(intervention && intervention[0]) || "-1"}
-          onChange={(e) => {
-            setIntervention((prev) => {
-              const newIntervention = [...prev];
-              newIntervention[0] = e.target.value; // cập nhật phần tử thứ 2
-              return newIntervention;
-            });
-            const index = reportTasks.findIndex((_: any) => _.id === item.id);
-            reportTasks[index].intervention[0] = e.target.value;
-            setDisable(false);
-          }}
-        >
-          <option value="-1">Tuần trước</option>
-          {interventions.map((_: any) => (
-            <option value={_.level} key={_.id}>
-              {_.level} : {_.name}
-            </option>
-          ))}
-        </select>
-        <select
-          disabled={status !== "pending"}
-          className="support-select"
-          value={(intervention && intervention[1]) || "-1"}
-          onChange={(e) => {
-            setIntervention((prev) => {
-              const newIntervention = [...prev];
-              newIntervention[1] = e.target.value; // cập nhật phần tử thứ 2
-              return newIntervention;
-            });
-            const index = reportTasks.findIndex((_: any) => _.id === item.id);
-            reportTasks[index].intervention[1] = e.target.value;
-            setDisable(false);
-          }}
-        >
-          <option value="-1">Tuần sau</option>
-          {interventions.map((_: any) => (
-            <option value={_.level} key={_.id}>
-              {_.level} : {_.name}
-            </option>
-          ))}
-        </select>
+        <strong>Mức độ hỗ trợ: </strong>
+        {planTask?.intervention}
       </div>
 
       <div className="mobile-info-box" style={{ textAlign: "justify" }}>
@@ -856,7 +791,7 @@ function ReportMobileCard({
             placeholder="Nhập đánh giá"
             rows={6}
             cols={100}
-            style={{ borderColor: colors.primary }}
+            style={{ borderColor: colors.primary, textAlign: "justify" }}
             id="floatingTextarea2"
             value={content}
           ></textarea>

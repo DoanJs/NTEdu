@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getDocData } from "../../constants/firebase/getDocData";
-import { InterventionModel, ReportTaskModel } from "../../models";
+import { ReportTaskModel } from "../../models";
 
 interface Props {
   reportTask: any;
@@ -8,7 +8,6 @@ interface Props {
   onSetReportTasks: any;
   setDisable: any;
   status: string;
-  interventions: InterventionModel[];
   fieldMap: any;
   targetMap: any;
 }
@@ -20,14 +19,12 @@ export default function ReportItem(props: Props) {
     onSetReportTasks,
     setDisable,
     status,
-    interventions,
     fieldMap,
     targetMap,
   } = props;
   const [planTask, setPlanTask] = useState<any>();
   const [content, setContent] = useState("");
   const [contentSource, setContentSource] = useState("");
-  const [intervention, setIntervention] = useState(["-1", "-1"]);
 
   useEffect(() => {
     if (reportTask) {
@@ -38,7 +35,6 @@ export default function ReportItem(props: Props) {
       });
       setContent(reportTask.content);
       setContentSource(reportTask.content);
-      setIntervention(reportTask.intervention);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reportTask]);
@@ -60,64 +56,21 @@ export default function ReportItem(props: Props) {
 
   return (
     <tr>
-      <td className="area-cell">{fieldMap[reportTask.fieldId]?.name}</td>
-      <td style={{ width: "25%", textAlign: "justify" }}>
+      <td style={{ width: "8%" }} className="area-cell">{fieldMap[reportTask.fieldId]?.name}</td>
+      <td style={{ width: "20%", textAlign: "justify" }}>
         <strong className="me-2">{targetMap[planTask?.targetId]?.name}</strong>
         <div className="level-pill">
           Level: {targetMap[planTask?.targetId]?.level}
         </div>
       </td>
-      <td style={{ width: "20%" }}>{planTask?.content}</td>
-      <td style={{ width: "20%" }}>
-        <select
-          disabled={status !== "pending"}
-          className="support-select"
-          value={(intervention && intervention[0]) || "-1"}
-          onChange={(e) => {
-            // setIntervention(e.target.value)
-            setIntervention((prev) => {
-              const newIntervention = [...prev];
-              newIntervention[0] = e.target.value; // cập nhật phần tử đầu tiên
-              return newIntervention;
-            });
-            const index = reportTasks.findIndex((_) => _.id === reportTask.id);
-            reportTasks[index].intervention[0] = e.target.value;
-            setDisable(false);
-          }}
-        >
-          <option value="-1">Tuần trước</option>
-          {interventions.map((_) => (
-            <option value={_.level} key={_.id}>
-              {_.level} : {_.name}
-            </option>
-          ))}
-        </select>
-        <select
-          disabled={status !== "pending"}
-          className="support-select"
-          value={(intervention && intervention[1]) || "-1"}
-          onChange={(e) => {
-            setIntervention((prev) => {
-              const newIntervention = [...prev];
-              newIntervention[1] = e.target.value; // cập nhật phần tử thứ 2
-              return newIntervention;
-            });
-            const index = reportTasks.findIndex((_) => _.id === reportTask.id);
-            reportTasks[index].intervention[1] = e.target.value;
-            setDisable(false);
-          }}
-        >
-          <option value="-1">Tuần sau</option>
-          {interventions.map((_) => (
-            <option value={_.level} key={_.id}>
-              {_.level} : {_.name}
-            </option>
-          ))}
-        </select>
+      <td style={{ width: "30%", textAlign: "justify" }}>{planTask?.content}</td>
+      <td style={{ width: "10%" }}>
+        {planTask?.intervention}
       </td>
-      <td style={{ width: "25%" }}>
+      <td style={{ width: "32%" }}>
         {status === "pending" ? (
           <textarea
+            style={{ textAlign: "justify" }}
             onChange={(e) => setContent(e.target.value)}
             className="form-control report-textarea"
             placeholder="Nhập đánh giá"
