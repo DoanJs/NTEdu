@@ -521,7 +521,7 @@ export default function AddReportScreen() {
               <div className="d-flex flex-column flex-md-row align-items-md-center">
                 <h2 className="me-md-2 mb-2 mb-md-0">Nội dung báo cáo tháng</h2>
               </div>
-              <p>Nhập tổng kết, đánh giá hoặc dùng AI để gợi ý nhận xét.</p>
+              <p>Nhập tổng kết, đánh giá hoặc dùng AI để gợi ý tổng kết.</p>
             </div>
 
             <span>

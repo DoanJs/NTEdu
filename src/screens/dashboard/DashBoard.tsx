@@ -1423,6 +1423,10 @@ input[type="checkbox"] {
     grid-template-columns: 54px 1fr;
   }
 
+  .teacher-box {
+    display: none;
+  }
+
   // .teacher-box {
   //   grid-column: 1 / -1;
   // }
@@ -1471,14 +1475,14 @@ input[type="checkbox"] {
     padding: 10px 12px;
   }
 
-  // .teacher-box {
-  //   display: none;
-  // }
-
   .teacher-box {
-    display: flex;
-    grid-column: 1 / -1;
+    display: none;
   }
+
+  // .teacher-box {
+  //   display: flex;
+  //   grid-column: 1 / -1;
+  // }
 
   .user-dropdown-wrapper {
     display: block;
