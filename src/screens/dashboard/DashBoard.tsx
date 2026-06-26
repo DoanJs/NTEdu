@@ -86,7 +86,9 @@ export default function DashBoard() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [open, setOpen] = useState(false);
+  const [openLeft, setOpenLeft] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const menuLeftRef = useRef<HTMLDivElement>(null);
 
   const [teacherStatus, setTeacherStatus] = useState<any>({});
 
@@ -414,6 +416,93 @@ export default function DashBoard() {
               setSelectNavbar={setSelectNavbar}
             /> */}
           </nav>
+
+          {/* Dropdown phia ben navbar */}
+          <div className="user-left-dropdown-wrapper mt-3" ref={menuLeftRef}>
+            <div
+              className="user-trigger"
+              onClick={() => setOpenLeft(!openLeft)}
+            >
+              <InfoBox
+                image={user?.avatar || logoUrl}
+                title={user?.fullName || "Cô giáo"}
+                subtitle={user?.position || "Chuyên viên Tâm lý"}
+                user
+              />
+
+              <i
+                className={`bi ${
+                  openLeft ? "bi-chevron-up" : "bi-chevron-down"
+                } user-arrow`}
+              />
+            </div>
+
+            {openLeft && (
+              <div className="user-dropdown-menu">
+                {user?.role === "admin" && (
+                  <Link
+                    onClick={() => {
+                      setOpenLeft(false);
+                      setSidebarOpen(false);
+                    }}
+                    to="./admin"
+                    className="dropdown-item-custom text-decoration-none"
+                  >
+                    <i className="bi bi-speedometer2" />
+                    Trang quản trị
+                  </Link>
+                )}
+
+                <Link
+                  onClick={() => {
+                    setOpenLeft(false);
+                    setSidebarOpen(false);
+                  }}
+                  to="./changepassword"
+                  className="dropdown-item-custom text-decoration-none"
+                >
+                  <i className="bi bi-key" />
+                  Đổi mật khẩu
+                </Link>
+
+                {user?.role === "admin" && (
+                  <Link
+                    onClick={() => {
+                      setOpenLeft(false);
+                      setSidebarOpen(false);
+                    }}
+                    to="../register"
+                    className="dropdown-item-custom text-decoration-none"
+                  >
+                    <i className="bi bi-person-plus" />
+                    Đăng ký tài khoản
+                  </Link>
+                )}
+
+                <Link
+                  onClick={() => {
+                    setOpenLeft(false);
+                    setSidebarOpen(false);
+                  }}
+                  to="./setting"
+                  className="dropdown-item-custom text-decoration-none"
+                >
+                  <i className="bi bi-gear" />
+                  Cài đặt
+                </Link>
+
+                <div className="dropdown-divider-custom" />
+
+                <button
+                  className="dropdown-item-custom danger"
+                  onClick={handleLogout}
+                >
+                  <i className="bi bi-box-arrow-right" />
+                  Đăng xuất
+                </button>
+              </div>
+            )}
+          </div>
 
           <div className="sidebar-footer">
             <div className="menu-background">
@@ -1261,9 +1350,14 @@ input[type="checkbox"] {
   font-weight: 600;
 }
 
-.user-dropdown-wrapper {
+.user-dropdown-wrapper,
+.user-left-dropdown-wrapper {
   position: relative;
   flex-shrink: 0;
+}
+
+.user-left-dropdown-wrapper {
+  display: none;
 }
 
 .user-trigger {
@@ -1433,6 +1527,7 @@ input[type="checkbox"] {
 
   .teacher-box,
   .user-dropdown-wrapper,
+  .user-left-dropdown-wrapper,
   .user-info-box {
     grid-column: 1 / -1;
   }
@@ -1485,6 +1580,10 @@ input[type="checkbox"] {
   // }
 
   .user-dropdown-wrapper {
+    display: none;
+  }
+
+  .user-left-dropdown-wrapper {
     display: block;
     grid-column: 1 / -1;
     width: 100%;
