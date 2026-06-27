@@ -139,13 +139,33 @@ export default function ChangePasswordScreen() {
       });
     } catch (error: any) {
       console.error(error);
+      console.log(error.code);
+      console.log(error.message);
 
-      if (error.code === "auth/wrong-password") {
-        handleToastError("Mật khẩu hiện tại không đúng");
-      } else if (error.code === "auth/weak-password") {
-        handleToastError("Mật khẩu mới quá yếu");
-      } else {
-        handleToastError("Có lỗi xảy ra, thử lại sau");
+      switch (error.code) {
+        case "auth/invalid-credential":
+          handleToastError("Mật khẩu hiện tại không đúng");
+          break;
+
+        case "auth/wrong-password":
+          handleToastError("Mật khẩu hiện tại không đúng");
+          break;
+
+        case "auth/weak-password":
+          handleToastError("Mật khẩu mới quá yếu");
+          break;
+
+        case "auth/too-many-requests":
+          handleToastError("Bạn thử quá nhiều lần, vui lòng thử lại sau.");
+          break;
+
+        case "auth/requires-recent-login":
+          handleToastError("Vui lòng đăng nhập lại trước khi đổi mật khẩu.");
+          break;
+
+        default:
+          console.error(error);
+          handleToastError(error.message || "Có lỗi xảy ra");
       }
     } finally {
       setIsLoading(false);
@@ -227,7 +247,7 @@ export default function ChangePasswordScreen() {
         </aside>
       </section>
 
-      
+
       <LoadingOverlay show={isLoading} />
     </>
   );

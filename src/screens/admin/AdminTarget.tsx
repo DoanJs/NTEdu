@@ -459,7 +459,7 @@ const css = `
 
 .goal-sub-info {
   margin-top: 8px;
-  padding-left: 14px;
+  // padding-left: 14px;
 
   display: flex;
   align-items: center;
@@ -470,7 +470,9 @@ const css = `
 
 .goal-sub-info span {
   font-size: 15px;
-  font-weight: 400;
+  color: var(--green-dark);
+  font-weight: bold;
+  font-style: italic;
 }
 
 .goal-sub-info strong {

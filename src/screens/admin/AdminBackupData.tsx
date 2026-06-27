@@ -48,13 +48,13 @@ export default function AdminBackupData() {
   return (
     <>
       <div className="admin-target-page">
-        <div className="page-panel p-3 p-md-4 h-100">
+        <div className="page-panel p-3 p-md-4 h-100 d-flex justify-content-center">
           <button
             className="btn btn-danger"
             onClick={() => setShowAlert(true)}
             disabled={isLoading}
           >
-            Backup tất cả data Can thiệp sớm Nha Trang
+            Backup data Can thiệp sớm Nha Trang
           </button>
         </div>
       </div>
