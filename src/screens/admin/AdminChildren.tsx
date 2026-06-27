@@ -232,10 +232,9 @@ export default function ChildrenScreen() {
       } else if (err.code === "functions/not-found") {
         handleToastError("Không tìm thấy trẻ");
       } else {
-        handleToastError(`ERROR: ${err} - CODE: ${err.code} - MESSAGE: ${err.message}`);
-        // handleToastError(
-        //   childEdit ? "Cập nhật trẻ thất bại" : "Thêm trẻ mới thất bại",
-        // );
+        handleToastError(
+          childEdit ? "Cập nhật trẻ thất bại" : "Thêm trẻ mới thất bại",
+        );
       }
     } finally {
       setIsLoading(false);
