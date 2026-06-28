@@ -339,18 +339,21 @@ export default function AdminTeacher() {
                         </td>
 
                         <td>
-                          <button
-                            className="edit-btn"
-                            onClick={() => {
-                              setTeacherEdit(teacher);
-                              handleToastSuccess(
-                                "Chế độ chỉnh sửa thông tin đã bật",
-                              );
-                              scrollToEditForm();
-                            }}
-                          >
-                            <i className="bi bi-pencil-fill" />
-                          </button>
+                          {
+                            teacher.role !== "admin" &&
+                            <button
+                              className="edit-btn"
+                              onClick={() => {
+                                setTeacherEdit(teacher);
+                                handleToastSuccess(
+                                  "Chế độ chỉnh sửa thông tin đã bật",
+                                );
+                                scrollToEditForm();
+                              }}
+                            >
+                              <i className="bi bi-pencil-fill" />
+                            </button>
+                          }
                         </td>
                       </tr>
                     ))}
