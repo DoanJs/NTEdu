@@ -116,6 +116,7 @@
 .summary-ai-wrap textarea {
   min-height: 110px;
   padding-bottom: 42px;
+  text-align: justify;
 }
 
 .btn-ai-summary {

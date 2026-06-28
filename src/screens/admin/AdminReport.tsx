@@ -263,7 +263,7 @@ const scrollToEditForm = () => {
                           <td>{childMap[report.childId] || "-"}</td>
                           <td>{planMap[report.planId] || "-"}</td>
                           <td>
-                            {report.name} - <strong>{report.id}</strong>
+                            {report.title} - <strong>{report.id}</strong>
                           </td>
 
                           <td>{report.status}</td>

@@ -29,6 +29,7 @@ export default function AddReportItem(props: Props) {
         <div className="summary-ai-wrap">
           <textarea
             className="form-control report-textarea"
+            style={{textAlign: 'justify'}}
             rows={4}
             placeholder="Nhập đánh giá, nhận xét..."
             value={addReport.total || ""}

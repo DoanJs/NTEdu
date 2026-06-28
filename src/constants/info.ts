@@ -5,7 +5,7 @@ export const FIRST_NAME = "TRUNG TÂM CAN THIỆP SỚM";
 export const LAST_NAME = "NHA TRANG";
 export const activeCategoryDefault = "0cRIazecDfAYnFJuWUfe"; //NTEdu
 export const indexedDBName = "NTEdu";
-export const ADMINID = "lfjyUePKV5hLwwFCMxWZzn87BF53"; //NTEdu
+export const ADMINID = "XI1oFCLxYvRUYfkBIUsBh909DUW2"; //NTEdu
 export const fieldOrder = [
   "0cRIazecDfAYnFJuWUfe", //nndđ
   "7SL34YXNPdV24tyU9NZ7", //knxh

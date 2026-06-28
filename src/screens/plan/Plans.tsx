@@ -998,7 +998,7 @@ body {
   }
 
   .teacher-box {
-    // display: flex;
+    display: none;
   }
 
   .page-head h1 {

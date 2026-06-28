@@ -340,7 +340,7 @@ function ChildCard({
       <article className="child-card">
         <div className="child-image-wrap">
           <img
-            src={child.avatar || "/NSXEdu-icon-512x512.png"}
+            src={child.avatar || "/NTEdu-icon-512x512.png"}
             alt={child.fullName}
             className="child-image"
           />

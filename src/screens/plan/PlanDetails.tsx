@@ -337,9 +337,11 @@ export default function PlanDetailScreen() {
           label="Ngày duyệt"
           value={
             (!isPending &&
-              moment(handleTimeStampFirestore(plan?.updateAt)).format(
-                "HH:mm:ss DD/MM/YYYY",
-              )) ||
+              (typeof plan?.updateAt === "number"
+                ? moment(plan?.updateAt).format("HH:mm:ss DD/MM/YYYY")
+                : moment(handleTimeStampFirestore(plan?.updateAt)).format(
+                    "HH:mm:ss DD/MM/YYYY",
+                  ))) ||
             "Đang chờ..."
           }
           warning
