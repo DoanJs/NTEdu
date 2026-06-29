@@ -1496,6 +1496,17 @@ input[type="checkbox"] {
     grid-template-columns: 54px 1fr 1fr;
   }
 
+  
+  .user-dropdown-wrapper {
+    display: none
+  }
+
+  .user-left-dropdown-wrapper {
+    display: block;
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
   .user-box {
     // display: none;
     display: flex;
@@ -1530,6 +1541,16 @@ input[type="checkbox"] {
   .user-left-dropdown-wrapper,
   .user-info-box {
     grid-column: 1 / -1;
+  }
+
+  .user-left-dropdown-wrapper {
+    display: block;
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .user-dropdown-wrapper {
+    display: none
   }
 
   .page-title h1 {
