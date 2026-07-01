@@ -28,6 +28,7 @@ export default function AdminGoalsDemo() {
     level: 0,
     fieldId: "",
     content: "",
+    order: 0,
   });
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -54,6 +55,7 @@ export default function AdminGoalsDemo() {
         fieldId: targetEdit.fieldId,
         level: targetEdit.level,
         content: targetEdit.content || "",
+        order: targetEdit.order || 0,
       });
     }
   }, [targetEdit]);
@@ -86,7 +88,7 @@ export default function AdminGoalsDemo() {
 
   const handleCreateNew = () => {
     setTargetEdit(undefined);
-    setForm({ nameTarget: "", level: 0, fieldId: "", content: "" });
+    setForm({ nameTarget: "", level: 0, fieldId: "", content: "", order: 0 });
   };
   const handleTarget = async () => {
     const data = {
@@ -94,6 +96,7 @@ export default function AdminGoalsDemo() {
       level: form.level,
       fieldId: form.fieldId,
       content: form.content,
+      order: form.order,
     };
 
     setIsLoading(true);
@@ -162,9 +165,9 @@ export default function AdminGoalsDemo() {
         });
     }
 
-    setForm({ nameTarget: "", fieldId: "", level: 0, content: "" });
+    setForm({ nameTarget: "", fieldId: "", level: 0, content: "", order: 0 });
   };
-const scrollToEditForm = () => {
+  const scrollToEditForm = () => {
     if (window.innerWidth >= 1200) return;
 
     setTimeout(() => {
@@ -215,36 +218,38 @@ const scrollToEditForm = () => {
                     </thead>
 
                     <tbody>
-                      {filteredTargets.map((goal) => (
-                        <tr key={goal.id}>
-                          <td>
-                            <div className="goal-content">{goal.name}</div>
+                      {[...filteredTargets]
+                        .sort((a, b) => a.level - b.level || a.order - b.order)
+                        .map((goal) => (
+                          <tr key={goal.id}>
+                            <td>
+                              <div className="goal-content">{goal.name}</div>
 
-                            <div className="goal-sub-info">
-                              <span>{fieldMap[goal.fieldId]}</span>
-                              <strong>{goal.id}</strong>
-                            </div>
-                          </td>
+                              <div className="goal-sub-info">
+                                <span>{fieldMap[goal.fieldId]}</span>
+                                <strong>{goal.id}</strong>
+                              </div>
+                            </td>
 
-                          <td>
-                            <div className="goal-level">{goal.level}</div>
-                          </td>
+                            <td>
+                              <div className="goal-level">{goal.level}</div>
+                            </td>
 
-                          <td>
-                            <button
-                              className="edit-btn"
-                              type="button"
-                              onClick={() => {
-                                setTargetEdit(goal);
-                                handleToastSuccess("Chế độ chỉnh sửa đã bật");
-                                scrollToEditForm();
-                              }}
-                            >
-                              <i className="bi bi-pencil-fill" />
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                            <td>
+                              <button
+                                className="edit-btn"
+                                type="button"
+                                onClick={() => {
+                                  setTargetEdit(goal);
+                                  handleToastSuccess("Chế độ chỉnh sửa đã bật");
+                                  scrollToEditForm();
+                                }}
+                              >
+                                <i className="bi bi-pencil-fill" />
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 )}
@@ -253,8 +258,7 @@ const scrollToEditForm = () => {
           </div>
 
           <div className="col-12 col-xl-4">
-            <div
-              ref={formRef} className="register-card">
+            <div ref={formRef} className="register-card">
               {targetEdit && (
                 <button
                   className="icon-btn icon-add position-absolute"
@@ -327,6 +331,20 @@ const scrollToEditForm = () => {
                     </option>
                   ))}
                 </select>
+
+                <label className="goal-label mt-2">Thứ tự mục tiêu</label>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Thứ tự trong lĩnh vực"
+                  value={form.order}
+                  onChange={(e) =>
+                    setForm({
+                      ...form,
+                      order: Number(e.target.value),
+                    })
+                  }
+                />
 
                 <label className="goal-label mt-2">Gợi ý cho mục tiêu:</label>
                 <textarea
