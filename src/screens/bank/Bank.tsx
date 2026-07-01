@@ -230,8 +230,8 @@ export default function BankScreen() {
               </thead>
 
               <tbody>
-                {filteredGoals
-                  .sort((a, b) => a.level - b.level)
+                {[...filteredGoals]
+                  .sort((a, b) => a.level - b.level || a.order - b.order)
                   .map((goal, index) => {
                     const isSelectedTarget = planTasks.some(
                       (planTask: PlanTaskModel) =>

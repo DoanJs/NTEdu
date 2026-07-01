@@ -1,6 +1,6 @@
 import { signOut } from "firebase/auth";
 import { onValue, ref, set } from "firebase/database";
-import { where } from "firebase/firestore";
+import { serverTimestamp, where } from "firebase/firestore";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Logo, SpinnerComponent } from "../../components";
@@ -16,6 +16,8 @@ import { auth, rtdb } from "../../firebase.config";
 import { ChildrenModel } from "../../models";
 import { useChildrenStore, useTeacherStore, useUserStore } from "../../zustand";
 import "./children.css";
+import { targetData } from "../../constants/database/targetData";
+import { addDocData } from "../../constants/firebase/addDocData";
 
 export default function HomeStudentsBootstrapGreen() {
   const navigate = useNavigate();
@@ -152,20 +154,20 @@ export default function HomeStudentsBootstrapGreen() {
   // -----------------test add data-----------------
   // const addDataToFirebase = async () => {
 
-  //   // const promiseItems = targetData.map((_) =>
-  //   //   addDocData({
-  //   //     nameCollect: "targets",
-  //   //     value: {
-  //   //       ..._,
-  //   //       createAt: serverTimestamp(),
-  //   //       updateAt: serverTimestamp(),
-  //   //     },
-  //   //     metaDoc: "targets",
-  //   //   }),
-  //   // );
+  //   const promiseItems = targetData.map((_) =>
+  //     addDocData({
+  //       nameCollect: "targets",
+  //       value: {
+  //         ..._,
+  //         createAt: serverTimestamp(),
+  //         updateAt: serverTimestamp(),
+  //       },
+  //       metaDoc: "targets",
+  //     }),
+  //   );
 
-  //   // await Promise.all(promiseItems);
-  //   // console.log("Completed");
+  //   await Promise.all(promiseItems);
+  //   console.log("Completed");
 
   //   // const promiseItems = dataMatching.map((item) =>
   //   //   setDoc(doc(db, "targets", item.id), {
@@ -177,7 +179,7 @@ export default function HomeStudentsBootstrapGreen() {
 
   //   // await Promise.all(promiseItems);
   //   // console.log('completed')
-  //   console.log(targetData)
+  //   // console.log(targetData)
   // };
 
   // ------------------test add data-----------------

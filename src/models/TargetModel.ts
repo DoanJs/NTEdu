@@ -7,6 +7,7 @@ export interface TargetModel {
   name: string;
   level: number;
   content?: string;
+  order: number;
 
   createAt: TimeAtModel | FieldValue | number;
   updateAt: TimeAtModel | FieldValue | number;
